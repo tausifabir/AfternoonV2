@@ -21,12 +21,12 @@ public class DepositResource {
   }
 
   @PostMapping("/create")
-  public DepositDto createDeposit(@RequestBody DepositDto depositDto){
+  public DepositDto createDeposit(@RequestBody DepositDto depositDto) {
     return depositService.create(depositDto);
   }
 
   @GetMapping("/all")
-  public List<DepositDto> getAllDeposits(){
+  public List<DepositDto> getAllDeposits() {
     return depositService.getAllDeposits();
   }
 }
