@@ -6,9 +6,10 @@ import com.example.afternoon.entity.UserProfile;
 import com.example.afternoon.repository.DepositRepository;
 import com.example.afternoon.repository.UserRepository;
 import com.example.afternoon.service.DepositService;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -30,12 +31,31 @@ public class DepositServiceImpl implements DepositService {
     }
     Optional<UserProfile> user = userRepository.findById(depositDto.getUserId());
     user.ifPresent(userProfile -> depositDto.setUserId(userProfile.getId()));
-    Deposit deposit = depositDto.toEntity();
-    return depositRepository.save(deposit).toDto();
+    Deposit deposit = new Deposit();
+    BeanUtils.copyProperties(depositDto, deposit);
+    DepositDto response = new DepositDto();
+    BeanUtils.copyProperties(depositRepository.save(deposit), response);
+    return response;
   }
 
   @Override
   public List<DepositDto> getAllDeposits() {
-    return depositRepository.findAll().stream().map(Deposit::toDto).collect(Collectors.toList());
+
+    List<Deposit> depositList =
+        this.depositRepository.findAll();
+
+    List<DepositDto> depositDtoList = new ArrayList<>();
+
+    if (depositList.isEmpty()) {
+      return depositDtoList;
+    }
+    depositList.forEach(team -> {
+      DepositDto depositDto = new DepositDto();
+      BeanUtils.copyProperties(team, depositDto);
+      depositDtoList.add(depositDto);
+    });
+
+    return depositDtoList;
+
   }
 }
