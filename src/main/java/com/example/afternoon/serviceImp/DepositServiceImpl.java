@@ -25,13 +25,11 @@ public class DepositServiceImpl implements DepositService {
 
   @Override
   public DepositDto create(DepositDto depositDto) {
-    if(depositDto.getId() != null){
+    if (depositDto.getId() != null) {
       throw new RuntimeException("deposit id should be null for new entry");
     }
     Optional<UserProfile> user = userRepository.findById(depositDto.getUserId());
-    if(user.isPresent()){
-      depositDto.setUserId(user.get().getId());
-    }
+    user.ifPresent(userProfile -> depositDto.setUserId(userProfile.getId()));
     Deposit deposit = depositDto.toEntity();
     return depositRepository.save(deposit).toDto();
   }

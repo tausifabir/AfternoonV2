@@ -4,34 +4,52 @@ import com.example.afternoon.dto.TeamDto;
 import com.example.afternoon.entity.Team;
 import com.example.afternoon.repository.TeamRepository;
 import com.example.afternoon.service.TeamService;
-import com.fasterxml.jackson.databind.util.BeanUtil;
+import java.util.ArrayList;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
+
 public class TeamServiceImpl implements TeamService {
 
   private final TeamRepository teamRepository;
 
-  public TeamServiceImpl(TeamRepository teamRepository) {
-    this.teamRepository = teamRepository;
-  }
-
 
   @Override
   public Team create(TeamDto teamDto) {
-
-
-    return null;
+    Team team = new Team();
+    BeanUtils.copyProperties(teamDto, team);
+    return this.teamRepository.save(team);
   }
 
   @Override
   public TeamDto getTeamById(Long id) {
-    return null;
+    Team team = this.teamRepository
+            .findById(id).orElseThrow(() -> new RuntimeException("Team not found by this id:" + id));
+    TeamDto teamDto = new TeamDto();
+    BeanUtils.copyProperties(team, teamDto);
+    return teamDto;
   }
 
   @Override
   public List<TeamDto> getAllTeams() {
-    return List.of();
+    List<Team> teamList =
+        teamRepository.findAll();
+
+    List<TeamDto> teamDtoList = new ArrayList<>();
+
+    if (teamList.isEmpty()) {
+      return teamDtoList;
+    }
+    teamList.forEach(team -> {
+      TeamDto teamDto = new TeamDto();
+      BeanUtils.copyProperties(team, teamDto);
+      teamDtoList.add(teamDto);
+    });
+
+    return teamDtoList;
   }
 }

@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface DepositService {
 
-  public DepositDto create(DepositDto depositDto);
+  DepositDto create(DepositDto depositDto);
 
-  public List<DepositDto> getAllDeposits();
+  List<DepositDto> getAllDeposits();
 }

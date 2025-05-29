@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface TeamService {
 
-  public Team create(TeamDto teamDto);
+  Team create(TeamDto teamDto);
 
-  public TeamDto getTeamById(Long id);
+  TeamDto getTeamById(Long id);
 
-  public List<TeamDto> getAllTeams();
+  List<TeamDto> getAllTeams();
 }
