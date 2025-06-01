@@ -2,21 +2,21 @@ package com.example.afternoon.service;
 
 import com.example.afternoon.dto.ConsumerRequestDto;
 import com.example.afternoon.dto.ConsumerResponseDto;
-import com.example.afternoon.dto.TeamDto;
-import java.time.LocalDate;
 import java.util.List;
 
 public interface ConsumerService {
 
   ConsumerResponseDto create(ConsumerRequestDto consumerRequestDto);
 
-  List<ConsumerResponseDto> create(List<ConsumerRequestDto> consumerRequestDtoList);
+  void create(List<ConsumerRequestDto> consumerRequestDtoList);
 
-  ConsumerResponseDto getTeamById(Long id);
+  ConsumerResponseDto getConsumeInfoById(Long userId);
 
-  List<ConsumerResponseDto> getConsumerInfoByDate(LocalDate date);
+  List<ConsumerResponseDto> getConsumerInfoByDate(String date);
 
-  List<ConsumerResponseDto> getConsumerInfoConsumerId(Long id);
+  ConsumerResponseDto getConsumerInfoByUserIdAndDate(Long userId, String date);
 
-  List<ConsumerResponseDto> getAllTeams();
+  List<ConsumerResponseDto> getAllConsumerInfoUserId(Long userId);
+
+  List<ConsumerResponseDto> getAllConsumedRecords();
 }

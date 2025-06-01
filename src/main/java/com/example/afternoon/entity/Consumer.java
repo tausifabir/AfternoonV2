@@ -1,5 +1,9 @@
 package com.example.afternoon.entity;
 
+import java.time.Instant;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.springframework.data.relational.core.mapping.Table;
 
 import javax.persistence.*;
@@ -8,69 +12,35 @@ import java.util.Date;
 
 @Entity
 @Table("consumer")
+@Setter
+@Getter
+@ToString
 public class Consumer implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @Column(name = "id")
+  private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private UserProfile userProfile;
+  @ManyToOne
+  @JoinColumn(name = "user_id")
+  private UserProfile userProfile;
 
-    private double spentAmount;
+  private double spentAmount;
 
-    private Date  spentDate;
+  private Date spentDate;
 
-    private String foodName;
+  private String foodName;
 
-    public Long getId() {
-        return id;
-    }
+  private Instant createdAt;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+  private Instant updatedAt;
 
-    public UserProfile getUser() {
-        return userProfile;
-    }
+  @ManyToOne
+  @JoinColumn(name = "created_by_id")
+  private UserProfile createdBy;
 
-    public void setUser(UserProfile userProfile) {
-        this.userProfile = userProfile;
-    }
+  @ManyToOne
+  @JoinColumn(name = "updated_by_id")
+  private UserProfile updatedBy;
 
-    public double getSpentAmount() {
-        return spentAmount;
-    }
-
-    public void setSpentAmount(double spentAmount) {
-        this.spentAmount = spentAmount;
-    }
-
-    public Date getSpentDate() {
-        return spentDate;
-    }
-
-    public void setSpentDate(Date spentDate) {
-        this.spentDate = spentDate;
-    }
-
-    public String getFoodName() {
-        return foodName;
-    }
-
-    public void setFoodName(String foodName) {
-        this.foodName = foodName;
-    }
-
-    @Override
-    public String toString() {
-        return "Consumer{" +
-                "id=" + id +
-                ", user=" + userProfile +
-                ", spentAmount=" + spentAmount +
-                ", spentDate=" + spentDate +
-                ", foodName='" + foodName + '\'' +
-                '}';
-    }
 }
