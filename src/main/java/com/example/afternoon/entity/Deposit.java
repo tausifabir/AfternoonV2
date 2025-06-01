@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import lombok.AccessLevel;
+import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.relational.core.mapping.Table;
 
@@ -19,16 +21,17 @@ import org.springframework.data.relational.core.mapping.Table;
 @ToString
 public class Deposit implements Serializable {
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
+  @Setter(AccessLevel.NONE)
   private Long id;
 
   private double depositedAmount;
 
   private Date depositedDate;
 
-  @Lob
-  private String previousDepositedDate;
+  //  @Lob
+  //  private String previousDepositedDate;
 
   private Date createdAt;
 

@@ -1,6 +1,7 @@
 package com.example.afternoon.entity;
 
 import java.time.Instant;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -17,8 +18,9 @@ import java.util.Date;
 @ToString
 public class Consumer implements Serializable {
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
+  @Setter(AccessLevel.NONE)
   private Long id;
 
   @ManyToOne

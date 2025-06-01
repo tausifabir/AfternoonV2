@@ -47,12 +47,12 @@ public class ConsumerResource {
     return consumerService.getConsumerInfoByDate(consumedDate);
   }
 
-  @GetMapping("/consumer-info/{userId}")
-  public ConsumerResponseDto getConsumerInfoByUserIdAndDate(
-      @PathVariable Long userId,
-      @RequestParam String consumedDate) {
-    return consumerService.getConsumerInfoByUserIdAndDate(userId, consumedDate);
-  }
+//  @GetMapping("/consumer-info")
+//  public ConsumerResponseDto getInfoByUserIdAndDate(
+//      @RequestParam("userId") Long userId,
+//      @RequestParam("consumedDate") String consumedDate) {
+//    return consumerService.getConsumerInfoByUserIdAndDate(userId, consumedDate);
+//  }
 
 
   @GetMapping("/consumer-info/{userId}")
