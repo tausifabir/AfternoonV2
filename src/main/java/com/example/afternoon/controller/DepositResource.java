@@ -1,7 +1,6 @@
 package com.example.afternoon.controller;
 
 import com.example.afternoon.dto.DepositDto;
-import com.example.afternoon.entity.Deposit;
 import com.example.afternoon.service.DepositService;
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
