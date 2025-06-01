@@ -2,7 +2,6 @@ package com.example.afternoon.serviceImp;
 
 import com.example.afternoon.dto.UserDto;
 import com.example.afternoon.entity.UserProfile;
-import com.example.afternoon.repository.TeamRepository;
 import com.example.afternoon.repository.UserRepository;
 import com.example.afternoon.service.UserService;
 import java.util.Date;
@@ -18,7 +17,6 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
   private final UserRepository userRepository;
-  private final TeamRepository teamRepository;
 
 
   @Override
@@ -50,6 +48,16 @@ public class UserServiceImpl implements UserService {
     /*List<Team> teams = teamRepository.findAll();
         user.setTeam(teams.get(0));*/
     return userRepository.save(userProfile);
+  }
+
+  @Override
+  public UserDto getUserById(Long id) {
+    UserProfile user =
+        userRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("User not found by this id:" + id));
+    UserDto userDto = new UserDto();
+    BeanUtils.copyProperties(user, userDto);
+    return userDto;
   }
 
   @Override
