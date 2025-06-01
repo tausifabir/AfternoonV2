@@ -11,5 +11,7 @@ public interface UserService {
 
   UserProfile createDemoUser();
 
+  UserDto getUserById(Long id);
+
   List<UserProfile> getAllUsers();
 }
