@@ -22,12 +22,12 @@ public class TeamResource {
   }
 
   @PostMapping("/create")
-  public Team createDeposit(@RequestBody TeamDto teamDto) {
+  public Team createTeam(@RequestBody TeamDto teamDto) {
     return teamService.create(teamDto);
   }
 
-  @PostMapping("/get/{id}")
-  public TeamDto createDeposit(@PathVariable Long id) {
+  @GetMapping("/get/{id}")
+  public TeamDto getTeamById(@PathVariable Long id) {
     return teamService.getTeamById(id);
   }
 
