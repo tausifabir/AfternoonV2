@@ -2,6 +2,7 @@ package com.example.afternoon.serviceImp;
 
 import com.example.afternoon.dto.TeamDto;
 import com.example.afternoon.entity.Team;
+import com.example.afternoon.exception.ResourceNotFoundException;
 import com.example.afternoon.repository.TeamRepository;
 import com.example.afternoon.service.TeamService;
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ public class TeamServiceImpl implements TeamService {
   @Override
   public TeamDto getTeamById(Long id) {
     Team team = this.teamRepository
-            .findById(id).orElseThrow(() -> new RuntimeException("Team not found by this id:" + id));
+            .findById(id).orElseThrow(() -> new ResourceNotFoundException("Team not found by this id:" + id));
     TeamDto teamDto = new TeamDto();
     BeanUtils.copyProperties(team, teamDto);
     return teamDto;
