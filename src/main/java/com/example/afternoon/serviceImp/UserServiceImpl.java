@@ -2,9 +2,12 @@ package com.example.afternoon.serviceImp;
 
 import com.example.afternoon.dto.UserDto;
 import com.example.afternoon.entity.UserProfile;
+import com.example.afternoon.exception.PreconditionFailedException;
+import com.example.afternoon.exception.ResourceNotFoundException;
 import com.example.afternoon.repository.UserRepository;
 import com.example.afternoon.service.UserService;
 import java.util.Date;
+import java.util.EmptyStackException;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -20,10 +23,14 @@ public class UserServiceImpl implements UserService {
 
 
   @Override
-  public UserDto create(UserDto userDto) {
+  public void preValidateRequest(UserDto userDto) {
     if (userDto.getId() != null) {
-      throw new RuntimeException("User id should be null for user creation!!");
+      throw new PreconditionFailedException("User id should be null for user creation!!");
     }
+  }
+
+  @Override
+  public UserDto create(UserDto userDto) {
     UserProfile userProfile = new UserProfile();
     BeanUtils.copyProperties(userDto, userProfile);
     UserDto response = new UserDto();
@@ -54,7 +61,7 @@ public class UserServiceImpl implements UserService {
   public UserDto getUserById(Long id) {
     UserProfile user =
         userRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("User not found by this id:" + id));
+            .orElseThrow(() -> new ResourceNotFoundException("User not found by this id:" + id));
     UserDto userDto = new UserDto();
     BeanUtils.copyProperties(user, userDto);
     return userDto;

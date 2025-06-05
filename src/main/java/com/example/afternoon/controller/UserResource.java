@@ -24,6 +24,7 @@ public class UserResource {
 
   @PostMapping("/create")
   public UserDto createUser(@RequestBody UserDto userDto) {
+    userService.preValidateRequest(userDto);
     return userService.create(userDto);
   }
 

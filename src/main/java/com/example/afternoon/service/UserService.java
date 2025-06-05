@@ -7,6 +7,9 @@ import java.util.List;
 
 public interface UserService {
 
+
+  void preValidateRequest(UserDto userDto);
+
   UserDto create(UserDto userDto);
 
   UserProfile createDemoUser();
